@@ -31,3 +31,17 @@ kubectl create -f f5-ipam-deployment.yaml
 kubectl get pods -A -o wide
 
 kubectl logs -n kube-system `kubectl get pods -A | grep f5-ipam | awk '{print $2}'`
+
+kubectl create -f echo-api-deployment.yaml
+
+kubectl get pods -A -o wide
+
+kubectl exec -n nginx-ingress `kubectl get pods -A | grep nginx-ingress | awk '{print $2}'` -- ls -l /etc/nginx/
+
+kubectl exec -n nginx-ingress `kubectl get pods -A | grep nginx-ingress | awk '{print $2}'` -- ls -l /etc/nginx/conf.d
+
+kubectl create -f echo-api-ingress.yaml
+
+kubectl create -f echo-api-vs.yaml
+
+curl -s --resolve echo.example.com:80:10.1.10.200 http://echo.example.com/api | jq
