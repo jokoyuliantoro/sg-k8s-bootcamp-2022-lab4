@@ -1,4 +1,4 @@
-=== SG K8s Bootcamp 2022 - Lab5 Commands ===
+=== SG K8s Bootcamp 2022 - Lab4 Commands ===
 
 git clone https://github.com/jokoyuliantoro/sg-k8s-bootcamp-2022-lab4
 
@@ -8,19 +8,19 @@ kubectl create -f customresourcedefinitions.yml
 
 kubectl create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
 
-kubectl create –f bigip-ctlr-clusterrole.yaml
+kubectl create -f bigip-ctlr-clusterrole.yaml
 
 nano f5-cis-deployment.yaml
 
-kubectl create –f f5-cis-deployment.yaml
+kubectl create -f f5-cis-deployment.yaml
 
 kubectl get pods -A -o wide
 
 kubectl logs -n kube-system `kubectl get pods -A | grep k8s-bigip-ctlr | awk '{print $2}'`
 
-kubectl create –f f5-ipam-rbac.yaml
+kubectl create -f f5-ipam-rbac.yaml
 
-kubectl create –f f5-ipam-persistentvolume.yaml
+kubectl create -f f5-ipam-persistentvolume.yaml
 
 kubectl get persistentvolume -A
 
@@ -43,6 +43,8 @@ kubectl exec -n nginx-ingress `kubectl get pods -A | grep nginx-ingress | awk '{
 kubectl exec -n nginx-ingress `kubectl get pods -A | grep nginx-ingress | awk '{print $2}'` -- ls -l /etc/nginx/conf.d
 
 kubectl create -f echo-api-ingress.yaml
+
+kubectl exec -n nginx-ingress `kubectl get pods -A | grep nginx-ingress | awk '{print $2}'` -- ls -l /etc/nginx/conf.d
 
 kubectl create -f echo-api-vs.yaml
 
